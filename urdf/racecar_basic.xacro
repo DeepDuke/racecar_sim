@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<robot name="racecar" xmlns:xacro="http://ros.org/wiki/xacro">
+	<!-- constant definition -->
+    <!-- wheel constants -->
+	<property name="M_PI" value="3.1415926" />
+	<property name="wheel_radius" value=".030" />
+	<property name="wheel_length" value=".025" />
+	<property name="wheel_mass" value=".020" />
+	<property name="wheel_ixx" value=".000006" />
+	<property name="wheel_ixy" value="0." />
+	<property name="wheel_ixz" value="0." />
+	<property name="wheel_iyy" value=".000006" />
+	<property name="wheel_iyz" value="0." />
+	<property name="wheel_izz" value=".000009" />
+    <!-- body constants -->
+	<property name="base_link_width" value=".32" />
+	<property name="base_link_depth" value=".18" />
+	<property name="base_link_height" value=".14" />
+	<property name="base_link_mass" value="2.298" />
+	<property name="base_link_ixx" value=".023363" />
+	<property name="base_link_ixy" value="0." />
+	<property name="base_link_ixz" value="0." />
+	<property name="base_link_iyy" value=".009958" />
+	<property name="base_link_iyz" value="0." />
+	<property name="base_link_izz" value=".025814" />
+	<!-- macro definition -->
+    <!-- wheel macro -->
+	<macro name="wheel" params="prefix">
+		<link name="${prefix}_wheel">
+			<visual>
+				<geometry>
+					<cylinder length="${wheel_length}" radius="${wheel_radius}" />
+				</geometry>
+				<material name="black">
+					<color rgba="0 0 0 1" />
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<cylinder length="${wheel_length}" radius="${wheel_radius}" />
+				</geometry>
+			</collision>
+			<inertial>
+				<mass value="${wheel_mass}" />
+				<inertia ixx="${wheel_ixx}" ixy="${wheel_ixy}" ixz="${wheel_ixz}" iyy="${wheel_iyy}" iyz="${wheel_iyz}" izz="${wheel_izz}" />
+			</inertial>
+		</link>
+	</macro>
+    <!-- wheel joint macro -->
+	<macro name="wheel_joint" params="prefix sign_x sign_y sign_z">
+		<joint name="${prefix}_wheel_joint" type="continuous">
+			<parent link="base_link" />
+			<child link="${prefix}_wheel" />
+			<origin rpy="0 ${M_PI/2} 0" xyz="${sign_x*0.09} ${sign_y*0.13} ${sign_z*0.08}" />
+			<axis xyz="0 0 1" />
+			<limit effort="10" velocity="1.0" />
+			<joint_properties damping="0.0" friction="0.0" />
+		</joint>
+	</macro>
+	<!-- main -->
+	<!-- racecar body -->
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<box size="${base_link_width} ${base_link_depth} ${base_link_height}" />
+			</geometry>
+			<origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+			<material name="orange">
+				<color rgba="0 0.5 0.8 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${base_link_width} ${base_link_depth} ${base_link_height}" />
+			</geometry>
+			<origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+		</collision>
+		<inertial>
+			<origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+			<mass value="${base_link_mass}" />
+			<inertia ixx="${base_link_ixx}" ixy="${base_link_ixy}" ixz="${base_link_ixz}" iyy="${base_link_iyy}" iyz="${base_link_iyz}" izz="${base_link_izz}" />
+		</inertial>
+	</link>
+	<!-- four wheels and joints -->
+	<wheel prefix="right_front" />
+	<wheel_joint prefix="right_front" sign_x="1" sign_y="1" sign_z="-1" />
+	<wheel prefix="right_back" />
+	<wheel_joint prefix="right_back" sign_x="1" sign_y="-1" sign_z="-1" />
+	<wheel prefix="left_front" />
+	<wheel_joint prefix="left_front" sign_x="-1" sign_y="1" sign_z="-1" />
+	<wheel prefix="left_back" />
+	<wheel_joint prefix="left_back" sign_x="-1" sign_y="-1" sign_z="-1" />
+</robot>

@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<robot name="racecar">
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<box size="0.32 0.18 0.14" />
+			</geometry>
+			<origin rpy="0 0 1.57075" xyz="0 0 0" />
+			<material name="orange">
+				<color rgba="0 0.5 0.8 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.32 0.18 0.14" />
+			</geometry>
+			<origin rpy="0 0 1.57075" xyz="0 0 0" />
+		</collision>
+		<inertial>
+			<origin rpy="0 0 1.57075" xyz="0 0 0" />
+			<mass value="2.28" />
+			<inertia ixx="0.023363" ixy="0.0" ixz="0.0" iyy="0.009958" iyz="0.0" izz="0.025814" />
+		</inertial>
+	</link>
+	<link name="right_front_wheel">
+		<visual>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.020" />
+			<inertia ixx="0.000006" ixy="0.0" ixz="0.0" iyy="0.000006" iyz="0.0" izz="0.000009" />
+		</inertial>
+	</link>
+	<joint name="right_front_wheel_joint" type="continuous">
+		<parent link="base_link" />
+		<child link="right_front_wheel" />
+		<origin rpy="0 1.57075 0" xyz="0.09 0.13 -0.08" />
+		<axis xyz="0 0 1" />
+		<limit effort="10" velocity="1.0" />
+		<joint_properties damping="0.0" friction="0.0" />
+	</joint>
+	<link name="right_back_wheel">
+		<visual>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.020" />
+			<inertia ixx="0.000006" ixy="0.0" ixz="0.0" iyy="0.000006" iyz="0.0" izz="0.000009" />
+		</inertial>
+	</link>
+	<joint name="right_back_wheel_joint" type="continuous">
+		<parent link="base_link" />
+		<child link="right_back_wheel" />
+		<origin rpy="0 1.57075 0" xyz="0.09 -0.13 -0.08" />
+		<axis xyz="0 0 1" />
+		<limit effort="10" velocity="1.0" />
+		<joint_properties damping="0.0" friction="0.0" />
+	</joint>
+	<link name="left_front_wheel">
+		<visual>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.020" />
+			<inertia ixx="0.000006" ixy="0.0" ixz="0.0" iyy="0.000006" iyz="0.0" izz="0.000009" />
+		</inertial>
+	</link>
+	<joint name="left_front_wheel_joint" type="continuous">
+		<parent link="base_link" />
+		<child link="left_front_wheel" />
+		<origin rpy="0 1.57075 0" xyz="-0.09 0.13 -0.08" />
+		<axis xyz="0 0 1" />
+		<limit effort="10" velocity="1.0" />
+		<joint_properties damping="0.0" friction="0.0" />
+	</joint>
+	<link name="left_back_wheel">
+		<visual>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="0.025" radius="0.03" />
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="0.020" />
+			<inertia ixx="0.000006" ixy="0.0" ixz="0.0" iyy="0.000006" iyz="0.0" izz="0.000009" />
+		</inertial>
+	</link>
+	<joint name="left_back_wheel_joint" type="continuous">
+		<parent link="base_link" />
+		<child link="left_back_wheel" />
+		<origin rpy="0 1.57075 0" xyz="-0.09 -0.13 -0.08" />
+		<axis xyz="0 0 1" />
+		<limit effort="10" velocity="1.0" />
+		<joint_properties damping="0.0" friction="0.0" />
+	</joint>
+	<!--
+	<link name="head">
+	<visual>
+	<geometry>
+	<box size=".02 .03 .03" />
+	</geometry>
+	<material name="white">
+	<color rgba="1 1 1 1" />
+	</material>
+	</visual>
+	</link>
+	<joint name="tobox" type="fixed">
+	<parent link="base_link" />
+	<child link="head" />
+	<origin xyz="0 0.08 0.025" />
+	</joint>
+	-->
+</robot>
